@@ -9,6 +9,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import { RoundedButton } from "./src/components/RoundedButton";
+import { MyColors } from "./src/theme/AppTheme";
 
 export default function App() {
   return (
@@ -51,7 +52,10 @@ export default function App() {
         </View>
         {/* ahrus pakai view utk  posisi */}
         <View style={{ marginTop: 20 }}>
-          <RoundedButton text={"LOGIN"} />
+          <RoundedButton
+            text={"LOGIN"}
+            onPress={() => ToastAndroid.show("Hello", ToastAndroid.SHORT)}
+          />
         </View>
         <View style={styles.formRegister}>
           <Text>Not Yet Register?</Text>
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
   form: {
     width: "100%",
     height: "40%",
-    backgroundColor: "white",
+    backgroundColor: MyColors.background,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     //yg background itu relative ,nah yg form absolute isi kosongnya
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   formButton: {
-    backgroundColor: "orange",
+    backgroundColor: MyColors.primary,
   },
   formRegister: {
     flexDirection: "row",
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
   formRegisterText: {
     color: "orange",
     fontStyle: "italic",
-    borderBottomColor: "orange",
+    borderBottomColor: MyColors.primary,
     borderBottomWidth: 1,
     fontWeight: "bold",
     marginLeft: 10,
