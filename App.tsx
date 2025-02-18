@@ -8,6 +8,7 @@ import {
   Button,
   ToastAndroid,
 } from "react-native";
+import { RoundedButton } from "./src/components/RoundedButton";
 
 export default function App() {
   return (
@@ -50,13 +51,7 @@ export default function App() {
         </View>
         {/* ahrus pakai view utk  posisi */}
         <View style={{ marginTop: 20 }}>
-          <Button
-            title="SUBMIT REGISTER"
-            onPress={() =>
-              ToastAndroid.show("HOLA YOU CLICK", ToastAndroid.LONG)
-            }
-            color={"orange"}
-          />
+          <RoundedButton text={"LOGIN"} />
         </View>
         <View style={styles.formRegister}>
           <Text>Not Yet Register?</Text>
@@ -135,6 +130,7 @@ const styles = StyleSheet.create({
   formRegister: {
     flexDirection: "row",
     justifyContent: "center",
+    marginTop: 10,
   },
   formRegisterText: {
     color: "orange",
