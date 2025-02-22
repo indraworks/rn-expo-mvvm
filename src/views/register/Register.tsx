@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,8 +9,28 @@ import {
 } from "react-native";
 import { MyColors } from "../../theme/AppTheme";
 import { RoundedButton } from "../../components/RoundedButton";
+import CustomTextInput from "../../components/CustomTextInput";
 
 export const RegisterScreen = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirm_password: "",
+  });
+  //prpoperty mengacu pada nama field ata nama state mis diatas :'name'
+  //value adalah nilai yg diketikan pada inputText ,
+  // yatu nilai dari formData.field/ formData.proeprty  contoh formData.email (isinya ya!)
+
+  const handleInputChange = (property: string, value: any) => {
+    setFormData({ ...formData, [property]: value });
+  };
+
+  // const handleInputChange = (property: string, value: any) => {
+  //   setFormData({ ...formData, [property]: value });
+  // };
   return (
     <View style={styles.container}>
       <Image
@@ -29,86 +49,60 @@ export const RegisterScreen = () => {
         <Text style={styles.formText}>REGISTER</Text>
         {/* ada formInput wraping 2 formtextinput dan image masing2 */}
 
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/user.png")}
-            style={styles.formIcon}
-          />
+        <CustomTextInput
+          image={require("../../../assets/user.png")}
+          placeholder={"Name"}
+          value={formData.name}
+          keyboardType={"default"}
+          //property adalah namafield
+          property={"name"}
+          onChangeText={handleInputChange}
+        />
+        <CustomTextInput
+          image={require("../../../assets/my_user.png")}
+          placeholder={"Last Name"}
+          value={formData.lastname}
+          keyboardType={"default"}
+          //property adalah namafield /state
+          property={"lastname"}
+          onChangeText={handleInputChange}
+        />
+        <CustomTextInput
+          image={require("../../../assets/phone.png")}
+          placeholder={"Phone Number"}
+          value={formData.phone}
+          keyboardType={"numeric"}
+          //property adalah namafield /state
+          property={"phone"}
+          onChangeText={handleInputChange}
+        />
+        <CustomTextInput
+          image={require("../../../assets/password.png")}
+          placeholder={"Password"}
+          value={formData.password}
+          keyboardType={"default"}
+          secureTextEntry={true}
+          //property adalah namafield /state
+          property={"password"}
+          onChangeText={handleInputChange}
+        />
 
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Name"
-            keyboardType="default"
-          />
-        </View>
-
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/my_user.png")}
-            style={styles.formIcon}
-          />
-
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="SureName"
-            keyboardType="default"
-          />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/email.png")}
-            style={styles.formIcon}
-          />
-
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Email Address"
-            keyboardType="email-address"
-          />
-        </View>
-
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/phone.png")}
-            style={styles.formIcon}
-          />
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Phone Number"
-            keyboardType="numeric"
-          />
-        </View>
-
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/password.png")}
-            style={styles.formIcon}
-          />
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Your Password"
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/confirm_password.png")}
-            style={styles.formIcon}
-          />
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Confirm Password"
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
+        <CustomTextInput
+          image={require("../../../assets/confirm_password.png")}
+          placeholder={"Password"}
+          value={formData.confirm_password}
+          keyboardType={"default"}
+          secureTextEntry={true}
+          //property adalah namafield /state
+          property={"confirm_password"}
+          onChangeText={handleInputChange}
+        />
 
         {/* ahrus pakai view utk  posisi */}
         <View style={{ marginTop: 20 }}>
           <RoundedButton
             text={"LOGIN"}
-            onPress={() => ToastAndroid.show("Hello", ToastAndroid.SHORT)}
+            onPress={() => console.log("formRegister =", formData)}
           />
         </View>
       </View>

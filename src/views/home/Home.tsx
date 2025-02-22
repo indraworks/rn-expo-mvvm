@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MyColors } from "../../theme/AppTheme";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -15,8 +15,23 @@ import { RoundedButton } from "../../components/RoundedButton";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../@type/RootStackParam";
+import CustomTextInput from "../../components/CustomTextInput";
 
 export const HomeScreen = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  //functuon utk onChange
+  //disini proeprty memgacu pada nama field property yg ada di compoent inputText
+
+  //nah value adalah nilai yg diinputkan pada component inputText !
+  const handleInputChange = (property: string, value: any) => {
+    setFormData({ ...formData, [property]: value });
+  };
+
+  //***navagitation */
   //jadi kalau mau navigation dari HomeScreen ke lain screen
   //maka harus guna useNavgation<StackNavigationProp<typeparamlistnya>>()
   //dimana typeparamlist adalah daftar type nama list screen masing2 viewscreen
@@ -40,36 +55,35 @@ export const HomeScreen = () => {
       <View style={styles.form}>
         <Text style={styles.formText}>LOGIN</Text>
         {/* ada formInput wraping 2 formtextinput dan image masing2 */}
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/email.png")}
-            style={styles.formIcon}
-          />
 
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Email Address"
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            source={require("../../../assets/password.png")}
-            style={styles.formIcon}
-          />
+        {/* dibawah ini kita akan ganti  gabungan  image & textInput dlm formInput 
+       dengan CustomTextInput component supaya bisa dire-use 
 
-          <TextInput
-            style={styles.formTextInput}
-            placeholder="Your Password"
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-        {/* ahrus pakai view utk  posisi */}
+       
+       */}
+        <CustomTextInput
+          image={"../../../assets/email.png"}
+          placeholder={"Email Address"}
+          value={formData.email}
+          keyboardType={"default"}
+          property={"email"}
+          onChangeText={handleInputChange}
+        />
+        <CustomTextInput
+          image={"../../../assets/password.png"}
+          placeholder={"Your Password"}
+          value={formData.password}
+          keyboardType={"default"}
+          property={"password"}
+          onChangeText={handleInputChange}
+          secureTextEntry={true}
+        />
+
         <View style={{ marginTop: 20 }}>
           <RoundedButton
             text={"LOGIN"}
-            onPress={() => ToastAndroid.show("Hello", ToastAndroid.SHORT)}
+            // onPress={() => ToastAndroid.show("Hello", ToastAndroid.SHORT)}
+            onPress={() => console.log(" formData =", formData)}
           />
         </View>
         <View style={styles.formRegister}>
